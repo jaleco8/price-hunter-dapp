@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="indigo darken-3"
-      dark
-    >
+    <v-app-bar app color="indigo darken-3" dark>
       <div class="d-flex align-center">
         <h1>🐷Price Hunter💸</h1>
       </div>
@@ -17,12 +13,7 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-
-  data: () => ({
-    //
-  }),
+  name: "App",
 };
 </script>
