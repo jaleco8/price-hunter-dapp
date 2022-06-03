@@ -13,10 +13,14 @@
     "@capacitor/android": "^2.0.0",
     "@capacitor/cli": "^2.0.0",
     "@capacitor/core": "^2.0.0",
+    "@celo/contractkit": "^2.0.0",
+    "axios": "^0.27.2",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-axios": "^3.4.1",
     "vue-router": "^3.5.4",
-    "vuetify": "^2.6.0"
+    "vuetify": "^2.6.0",
+    "web3": "^1.7.3"
   },
   "devDependencies": {
     "@nklayman/vue-cli-plugin-capacitor": "~0.4.0",

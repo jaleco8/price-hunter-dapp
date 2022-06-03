@@ -60,15 +60,15 @@
           <v-divider class="mx-4"></v-divider>
           <v-card-actions>
             <v-text-field
-              v-model="message"
-              :append-outer-icon="message ? 'mdi-send' : ''"
+              v-model="chave"
+              :append-outer-icon="chave ? 'mdi-send' : ''"
               label="Código"
               placeholder="2922 0528 3882 7300 0174 6515 9000 0123 5690 0020 7402"
               color="success"
               :rules="[rules.required, rules.counter]"
               clearable
               solo
-              @click:append-outer="sendMessage"
+              @click:append-outer="getFincalNote"
             ></v-text-field>
           </v-card-actions>
         </v-card>
@@ -102,30 +102,74 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-btn dark @click="verSaldoClickHandler"> ver Saldo </v-btn>
   </v-container>
 </template>
 
 <script>
+import Web3 from "web3";
+import { newKitFromWeb3 } from "@celo/contractkit";
+import { getFicalNote } from "@/services/fiscalNote";
+
 export default {
   name: "Dashboard",
 
   data: () => ({
-    message: "",
+    chave: "",
     rules: {
       required: (value) => !!value || "Required.",
       counter: (value) => value.length <= 44 || "Max 44 characters",
     },
   }),
   methods: {
+    async verSaldoClickHandler() {
+      const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+      const kit = newKitFromWeb3(web3);
+
+      let accounts = await kit.web3.eth.getAccounts();
+      kit.defaultAccount = accounts[0];
+      let totalBalance = await kit.getTotalBalance(
+        "0x6B2e7c53c07E60bAEed910EC258684cD8D3f882c"
+      );
+      console.log(totalBalance["CELO"]["c"][0]);
+    },
     sendMessage() {
       this.clearMessage();
     },
+    async getFincalNote() {
+      try {
+        const res = await getFicalNote(this.chave);
+        if (res.status === 200) {
+          console.log(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     clearMessage() {
-      this.message = "";
+      this.chave = "";
     },
     goToPriceList() {
-      this.$router.push('/price-list')
+      this.$router.push("/price-list");
     },
+    /* async liberacionArbitralContractKitHandler() {
+      if (window.ethereum) {
+        const web3 = new Web3(window.ethereum);
+        try {
+          // Request account access if needed
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const account = accounts[0];
+          console.log(account);
+          // Acccounts now exposed
+          return web3;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }, */
   },
 };
 </script>
