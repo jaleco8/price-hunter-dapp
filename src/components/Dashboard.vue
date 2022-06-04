@@ -111,6 +111,7 @@
 import Web3 from "web3";
 import { newKitFromWeb3 } from "@celo/contractkit";
 import { getFicalNote } from "@/services/fiscalNote";
+const fiscalNote = require("@/config/fiscalNote.json");
 
 export default {
   name: "Dashboard",
@@ -121,6 +122,7 @@ export default {
       required: (value) => !!value || "Required.",
       counter: (value) => value.length <= 44 || "Max 44 characters",
     },
+    prod: [],
   }),
   methods: {
     async verSaldoClickHandler() {
@@ -139,9 +141,37 @@ export default {
     },
     async getFincalNote() {
       try {
-        const res = await getFicalNote(this.chave);
+        const data = {
+          qrcode: `${process.env.VUE_APP_URL_SEFAZ}?p=${this.chave}`,
+          estado: "TO",
+        };
+        const res = await getFicalNote(data);
         if (res.status === 200) {
-          console.log(res.data);
+          //console.log(res.data);
+          for (let i = 0; i < res.data.produtos.length; i++) {
+            this.prod.push({
+              nome: res.data.produtos[i].nome,
+              quantidade: res.data.produtos[i].quantidade,
+              subtotal: res.data.produtos[i].subtotal,
+              total: res.data.produtos[i].total,
+              chave: this.chave,
+            });
+          }
+
+          const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+          const kit = newKitFromWeb3(web3);
+          const fiscalNoteContract = new web3.eth.Contract(
+            fiscalNote.abi,
+            "0x9828F99985a337c41fE3Ef1B72932365d3EA4e58"
+          );
+          const saveFiscalNote = await fiscalNoteContract.methods
+            .saveFiscalNote(res.data.emitente.cnpj, this.prod)
+            .send({
+              from: kit.defaultAccount,
+              gas: "1000000",
+            });
+
+          console.log(saveFiscalNote);
         }
       } catch (error) {
         console.log(error);
