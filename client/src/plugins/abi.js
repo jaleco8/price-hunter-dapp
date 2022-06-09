@@ -3,98 +3,57 @@ const abi=
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_comprador",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_vendedor",
-				"type": "address"
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_monto",
+				"name": "_cnpj",
+				"type": "uint256"
+			}
+		],
+		"name": "addMarket",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
 				"type": "uint256"
 			},
 			{
-				"internalType": "address",
-				"name": "_arbitro",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "_key",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_cnpj",
+				"type": "uint256"
 			}
 		],
+		"name": "addProduct",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
 	{
 		"inputs": [],
-		"name": "arbitro",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "comprador",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "compradorConfirmaOK",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "compradorOK",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "depositarPago",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "depositoListo",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "montoPago",
+		"name": "createIdMarket",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -107,19 +66,12 @@ const abi=
 	},
 	{
 		"inputs": [],
-		"name": "pagarPorArbitro",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "pagoListo",
+		"name": "createIdProduct",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -127,19 +79,204 @@ const abi=
 	},
 	{
 		"inputs": [],
-		"name": "retirarPago",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "getAllMarkets",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "cnpj",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct test.Market[]",
+				"name": "allMarkets",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "vendedor",
+		"name": "getAllProduct",
 		"outputs": [
 			{
-				"internalType": "address",
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "key",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "market_id",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct test.Product[]",
+				"name": "allProducts",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_cnpj",
+				"type": "uint256"
+			}
+		],
+		"name": "getIdMarket",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "idMarket",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "getMarket",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "address"
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_cnpj",
+				"type": "uint256"
+			}
+		],
+		"name": "isUnique",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "uniqueMarket",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "markets",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "cnpj",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "products",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "key",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "market_id",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

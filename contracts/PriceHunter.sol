@@ -8,7 +8,6 @@ contract test {
     uint public createIdMarket;
     uint public createIdProduct;
 
-
     struct Product { 
         uint id;
         string name;
@@ -30,8 +29,12 @@ contract test {
         //Initial variables that store the id
         createIdMarket = 0;
         createIdProduct = 0;
-        addMarket("papa", 1000);
-        addMarket("queso", 2000);
+        addMarket("Redmix", 1111 );
+        addMarket("Hiperideal", 2222);
+        addProduct("arroz", 7, 1001, 1111);
+        addProduct("queso", 15, 1001, 1111);
+        addProduct("queso", 16, 2002, 2222);
+        addProduct("arroz", 8, 2002, 2222);
     }
 
     //function to add products 
@@ -99,6 +102,16 @@ contract test {
         for (uint i = 0; i < createIdMarket; i++) {
             Market memory market = markets[i];
             allMarkets[i] = market;
+        }
+    }
+
+    //function to get all product
+    function getAllProduct() public view returns (Product[] memory allProducts){
+        allProducts = new Product[](createIdProduct);
+        
+        for (uint i = 0; i < createIdProduct; i++) {
+            Product memory product = products[i];
+            allProducts[i] = product;
         }
     }
 }
