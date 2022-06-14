@@ -10,52 +10,23 @@
 
     <v-img
       height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      :src="require('../assets/beautiful-young-family-with-child.png')"
     ></v-img>
 
-    <!-- <v-card-title>Cafe Badilico</v-card-title>
-
-    <v-card-text>
-      <v-row
-        align="center"
-        class="mx-0"
-      >
-        <v-rating
-          :value="4.5"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="14"
-        ></v-rating>
-
-        <div class="grey--text ms-4">
-          4.5 (413)
-        </div>
-      </v-row>
-
-      <div class="my-4 text-subtitle-1">
-        $ • Italian, Cafe
-      </div>
-
-      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
-    </v-card-text>
-
-    <v-divider class="mx-4"></v-divider> -->
     <v-list>
-      <v-list-item three-line>
+      <v-list-item three-line v-for="(item, index) in items" :key="item">
         <v-list-item-avatar>
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+          <v-img :src="require('../assets/grocery.png')"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>Cafe Badilico</v-list-item-title>
-          <v-list-item-subtitle><span class="text--primary">Precio Promedio</span> &mdash; 150$ </v-list-item-subtitle>
+          <v-list-item-title>{{item.emitente.razao_social}}</v-list-item-title>
+          <v-list-item-subtitle><span class="text--primary">Precio Promedio</span> &mdash; $ {{item.total}} </v-list-item-subtitle>
           <v-list-item-subtitle>
-            <span class="text--primary">Coincidencia</span> &mdash; Gaseosa 50$
+            <span class="text--primary">Coincidencia</span> &mdash; {{item.produtos[0].nome}} $ {{item.produtos[0].total}}
           </v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-          <v-list-item-action-text>1</v-list-item-action-text>
+          <v-list-item-action-text>{{ ++index }}</v-list-item-action-text>
         </v-list-item-action>
       </v-list-item>
 
@@ -65,18 +36,47 @@
 </template>
 
 <script>
+import Web3 from "web3";
+import { getFicalNoteJson } from "@/services/fiscalNote";
+const fiscalNote = require("@/config/fiscalNote.json");
 export default {
   name: "PriceList",
   data: () => ({
     loading: false,
     selection: 1,
+    items: [],
   }),
+  created() {
+    this.reserve();
+    this.getPriceHunter();
+  },
 
   methods: {
     reserve() {
       this.loading = true;
 
       setTimeout(() => (this.loading = false), 2000);
+    },
+    async getPriceHunter() {
+      try {
+        const res = await getFicalNoteJson();
+        if (res.status === 200) {
+          this.items = res.data;
+          console.log(res.data);
+          this.snackbar = true;
+          const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+          const fiscalNoteContract = new web3.eth.Contract(
+            fiscalNote.abi,
+            "0x9828F99985a337c41fE3Ef1B72932365d3EA4e58"
+          );
+
+          const getAllMarkets = await fiscalNoteContract.methods
+            .getAllMarkets();
+          console.log(getAllMarkets);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

@@ -102,7 +102,23 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="snackbar"
+    >
+      {{ text }}
 
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="success"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+          elevation="24"
+        >
+          Cerrar
+        </v-btn>
+      </template>
+    </v-snackbar>
     <!-- <v-btn dark @click="verSaldoClickHandler"> ver Saldo </v-btn> -->
   </v-container>
 </template>
@@ -110,19 +126,19 @@
 <script>
 import Web3 from "web3";
 import { newKitFromWeb3 } from "@celo/contractkit";
-import { getFicalNote } from "@/services/fiscalNote";
+import { getFicalNoteJson } from "@/services/fiscalNote";
 const fiscalNote = require("@/config/fiscalNote.json");
 
 export default {
   name: "Dashboard",
-
   data: () => ({
     chave: "",
     rules: {
       required: (value) => !!value || "Required.",
       counter: (value) => value.length <= 44 || "Max 44 characters",
     },
-    prod: [],
+    snackbar: false,
+    text: `Su factura se ha registrado con éxito.`,
   }),
   methods: {
     async verSaldoClickHandler() {
@@ -141,37 +157,50 @@ export default {
     },
     async getFincalNote() {
       try {
-        const data = {
-          qrcode: `${process.env.VUE_APP_URL_SEFAZ}?p=${this.chave}`,
-          estado: "TO",
-        };
-        const res = await getFicalNote(data);
+        const res = await getFicalNoteJson();
         if (res.status === 200) {
-          //console.log(res.data);
-          for (let i = 0; i < res.data.produtos.length; i++) {
-            this.prod.push({
-              nome: res.data.produtos[i].nome,
-              quantidade: res.data.produtos[i].quantidade,
-              subtotal: res.data.produtos[i].subtotal,
-              total: res.data.produtos[i].total,
-              chave: this.chave,
-            });
-          }
-
+          console.log(res.data[0]);
+          this.snackbar = true;
           const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
           const kit = newKitFromWeb3(web3);
           const fiscalNoteContract = new web3.eth.Contract(
             fiscalNote.abi,
             "0x9828F99985a337c41fE3Ef1B72932365d3EA4e58"
           );
-          const saveFiscalNote = await fiscalNoteContract.methods
-            .saveFiscalNote(res.data.emitente.cnpj, this.prod)
-            .send({
-              from: kit.defaultAccount,
-              gas: "1000000",
-            });
 
-          console.log(saveFiscalNote);
+          for (let i = 0; i < res.data.length; i++) {
+            if(res.data[i].chave == this.chave){
+              //Ingresamos el Marketplace
+              const saveMarket = await fiscalNoteContract.methods
+                .addMarket(
+                  res.data[i].emitente.razao_social,
+                  res.data[i].emitente.cnpj,
+                )
+                .send({
+                  from: kit.defaultAccount,
+                  gas: "1000000",
+                });
+              console.log(saveMarket);
+
+              //Ingresamos los Producto
+              for (let j = 0; j < res.data.produtos.length; j++) {
+                const saveProduct = await fiscalNoteContract.methods
+                  .addProduct(
+                    res.data[i].produtos[j].nome,
+                    res.data[i].produtos[j].quantidade,
+                    res.data[i].produtos[j].subtotal,
+                    res.data[i].produtos[j].total,
+                    res.data[i].chave,
+                    res.data[i].emitente.cnpj,
+                  )
+                  .send({
+                    from: kit.defaultAccount,
+                    gas: "1000000",
+                  });
+                console.log(saveProduct);
+              }
+            }
+          }
         }
       } catch (error) {
         console.log(error);

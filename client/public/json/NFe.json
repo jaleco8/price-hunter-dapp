@@ -1,11 +1,12 @@
-{
-    "chave": "29220600813880000115650500004137381373454829", // Chave
-    "protocolo": "329220575830419", // Protocolo de aprovação
-    "data_emissao": "13/06/2022 16:12:52-03:00", // Data de emissão
-    "numero": 413738, // Número
-    "serie": 50, // Série
-    "total": "20.71", // Valor da nota
-    "emitente": [
+[
+  {
+    "chave": "29220600813880000115650500004137381373454829",
+    "protocolo": "329220575830419",
+    "data_emissao": "13/06/2022 16:12:52-03:00",
+    "numero": 413738,
+    "serie": 50,
+    "total": "20.71",
+    "emitente": {
       "cnpj":"00.813.880/0001-15", 
       "razao_social":"MASANI COMERCIAL DE GENEROS ALIM. LTDA", 
       "endereco":"AV. PAULO VI", 
@@ -14,7 +15,7 @@
       "bairro":"PITUBA",
       "cidade":"SALVADOR",
       "uf":"BA"
-    ],
+    },
     "produtos": [
       {
         "nome": "PAO FRANC RUST DCE KG",
@@ -25,19 +26,18 @@
         "total": "7.52"
       }
     ],
-    "consumidor": [
+    "consumidor": {
       "cpf": "000.000.000-00"
-    ] 
-  }
-  
+    } 
+  },
   {
-    "chave": "29220675315333025284655090000939181048579177", // Chave
-    "protocolo": "329220540949326", // Protocolo de aprovação
-    "data_emissao": "25/03/2022 18:15:00-03:00", // Data de emissão
-    "numero": 93918, // Número
-    "serie": 509, // Série
-    "total": "804.79", // Valor da nota
-    "emitente": [
+    "chave": "29220675315333025284655090000939181048579177",
+    "protocolo": "329220540949326",
+    "data_emissao": "25/03/2022 18:15:00-03:00",
+    "numero": 93918,
+    "serie": 509,
+    "total": "804.79",
+    "emitente": {
       "cnpj":"75.315.333/0252-84", 
       "razao_social":"ATACADAO S.A.", 
       "endereco":"AV MARIO LEAL FERREIRA", 
@@ -46,7 +46,7 @@
       "bairro":"BROTAS",
       "cidade":"SALVADOR",
       "uf":"BA"
-    ],
+    },
     "produtos": [
       {
         "nome": "PAO PLUS VITA",
@@ -57,19 +57,18 @@
         "total": "9.90"
       }
     ],
-    "consumidor": [
+    "consumidor": {
       "cpf": "000.000.000-00"
-    ] 
-  }
-
+    } 
+  },
   {
-    "chave": "35220400496270000135550010000178851000864060", // Chave
-    "protocolo": "20540944669326", // Protocolo de aprovação
-    "data_emissao": "9/06/2022 6:12:02-03:00", // Data de emissão
-    "numero": 9231218, // Número
-    "serie": 9, // Série
-    "total": "30.00", // Valor da nota
-    "emitente": [
+    "chave": "35220400496270000135550010000178851000864060",
+    "protocolo": "20540944669326",
+    "data_emissao": "9/06/2022 6:12:02-03:00",
+    "numero": 9231218,
+    "serie": 9,
+    "total": "30.00",
+    "emitente": {
       "cnpj":"24.415.789/0252-44", 
       "razao_social":"Mercamax", 
       "endereco":"JOSEU DUARTE", 
@@ -78,7 +77,7 @@
       "bairro":"NAZARET",
       "cidade":"SALVADOR",
       "uf":"BA"
-    ],
+    },
     "produtos": [
       {
         "nome": "PAO FRANC",
@@ -89,7 +88,8 @@
         "total": "4.80"
       }
     ],
-    "consumidor": [
+    "consumidor": {
       "cpf": "000.000.000-00"
-    ] 
+    }
   }
+]

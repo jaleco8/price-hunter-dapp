@@ -11,7 +11,9 @@ contract test {
     struct Product { 
         uint id;
         string name;
+        uint quantity;
         uint price;
+        uint total;
         uint key;       //fiscal notes key 
         uint market_id; 
     }
@@ -31,15 +33,15 @@ contract test {
         createIdProduct = 0;
         addMarket("Redmix", 1111 );
         addMarket("Hiperideal", 2222);
-        addProduct("arroz", 7, 1001, 1111);
-        addProduct("queso", 15, 1001, 1111);
-        addProduct("queso", 16, 2002, 2222);
-        addProduct("arroz", 8, 2002, 2222);
+        addProduct("arroz",  1, 7, 7, 1001, 1111);
+        addProduct("queso",  1, 15, 15, 1001, 1111);
+        addProduct("queso", 1, 16, 16, 2002, 2222);
+        addProduct("arroz", 1, 8, 8, 2002, 2222);
     }
 
     //function to add products 
-    function addProduct(string memory _name, uint _price, uint _key, uint _cnpj) public {
-        products[createIdProduct] = Product(createIdProduct, _name, _price, _key, getIdMarket(_cnpj));
+    function addProduct(string memory _name, uint _quantity, uint _price, uint _total, uint _key, uint _cnpj) public {
+        products[createIdProduct] = Product(createIdProduct, _name, _quantity, _price, _total, _key, getIdMarket(_cnpj));
         createIdProduct++;
     }
 
