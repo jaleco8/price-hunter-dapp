@@ -1,0 +1,95 @@
+{
+    "chave": "29220600813880000115650500004137381373454829", // Chave
+    "protocolo": "329220575830419", // Protocolo de aprovação
+    "data_emissao": "13/06/2022 16:12:52-03:00", // Data de emissão
+    "numero": 413738, // Número
+    "serie": 50, // Série
+    "total": "20.71", // Valor da nota
+    "emitente": [
+      "cnpj":"00.813.880/0001-15", 
+      "razao_social":"MASANI COMERCIAL DE GENEROS ALIM. LTDA", 
+      "endereco":"AV. PAULO VI", 
+      "numero":1935, 
+      "complemento":"",
+      "bairro":"PITUBA",
+      "cidade":"SALVADOR",
+      "uf":"BA"
+    ],
+    "produtos": [
+      {
+        "nome": "PAO FRANC RUST DCE KG",
+        "item": "2446",
+        "quantidade": "0,443",
+        "unidade": "KG",
+        "subtotal": "16.98",
+        "total": "7.52"
+      }
+    ],
+    "consumidor": [
+      "cpf": "000.000.000-00"
+    ] 
+  }
+  
+  {
+    "chave": "29220675315333025284655090000939181048579177", // Chave
+    "protocolo": "329220540949326", // Protocolo de aprovação
+    "data_emissao": "25/03/2022 18:15:00-03:00", // Data de emissão
+    "numero": 93918, // Número
+    "serie": 509, // Série
+    "total": "804.79", // Valor da nota
+    "emitente": [
+      "cnpj":"75.315.333/0252-84", 
+      "razao_social":"ATACADAO S.A.", 
+      "endereco":"AV MARIO LEAL FERREIRA", 
+      "numero":500, 
+      "complemento":"",
+      "bairro":"BROTAS",
+      "cidade":"SALVADOR",
+      "uf":"BA"
+    ],
+    "produtos": [
+      {
+        "nome": "PAO PLUS VITA",
+        "item": "64329",
+        "quantidade": "1",
+        "unidade": "KG",
+        "subtotal": "9.90",
+        "total": "9.90"
+      }
+    ],
+    "consumidor": [
+      "cpf": "000.000.000-00"
+    ] 
+  }
+
+  {
+    "chave": "35220400496270000135550010000178851000864060", // Chave
+    "protocolo": "20540944669326", // Protocolo de aprovação
+    "data_emissao": "9/06/2022 6:12:02-03:00", // Data de emissão
+    "numero": 9231218, // Número
+    "serie": 9, // Série
+    "total": "30.00", // Valor da nota
+    "emitente": [
+      "cnpj":"24.415.789/0252-44", 
+      "razao_social":"Mercamax", 
+      "endereco":"JOSEU DUARTE", 
+      "numero":530, 
+      "complemento":"",
+      "bairro":"NAZARET",
+      "cidade":"SALVADOR",
+      "uf":"BA"
+    ],
+    "produtos": [
+      {
+        "nome": "PAO FRANC",
+        "item": "629",
+        "quantidade": "0.58",
+        "unidade": "KG",
+        "subtotal": "10.24",
+        "total": "4.80"
+      }
+    ],
+    "consumidor": [
+      "cpf": "000.000.000-00"
+    ] 
+  }
