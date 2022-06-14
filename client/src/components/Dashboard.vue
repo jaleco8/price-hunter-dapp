@@ -103,7 +103,7 @@
       </v-col>
     </v-row>
 
-    <v-btn dark @click="verSaldoClickHandler"> ver Saldo </v-btn>
+    <!-- <v-btn dark @click="verSaldoClickHandler"> ver Saldo </v-btn> -->
   </v-container>
 </template>
 
